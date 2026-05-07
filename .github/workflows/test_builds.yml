@@ -1,0 +1,42 @@
+name: Build MPP
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - dev
+    paths:
+      - 'extensions/**'
+      - 'patches/**'
+
+jobs:
+  build:
+    name: Build MPP
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Gradle
+        uses: burrunan/gradle-cache-action@v3
+
+      - name: Build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew :patches:buildAndroid generatePatchesList clean
+
+      - name: Upload MPP
+        uses: actions/upload-artifact@v4
+        with:
+          name: patches-${{ github.sha }}
+          path: patches/build/libs/patches-*.mpp
+          if-no-files-found: error
