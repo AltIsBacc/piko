@@ -134,6 +134,36 @@ public class SettingsStatus {
     public static boolean hideNavigationButtons = false;
     public static void hideNavigationButtons() { hideNavigationButtons = true; }
 
+
+    // ── Message Logger section ────────────────────────────────────────────────
+
+    /** Master toggle flag: set to true when the messageLoggerPatch is active. */
+    public static boolean messageLogger = false;
+    public static void messageLogger() { messageLogger = true; }
+
+    /** Sub-feature flag: set to true when edit-tracking is active. */
+    public static boolean messageLoggerEdits = false;
+    public static void messageLoggerEdits() { messageLoggerEdits = true; }
+
+    /** Sub-feature flag: set to true when deletion-tracking is active. */
+    public static boolean messageLoggerDeletes = false;
+    public static void messageLoggerDeletes() { messageLoggerDeletes = true; }
+
+    /** Sub-feature flag: set to true when reaction-tracking is active. */
+    public static boolean messageLoggerReactions = false;
+    public static void messageLoggerReactions() { messageLoggerReactions = true; }
+
+    /**
+     * Section guard: returns true if at least one message-logger sub-feature
+     * is active, causing buildMessageLoggerSection() to render the category.
+     */
+    public static boolean messageLoggerSection() {
+        return messageLogger
+            || messageLoggerEdits
+            || messageLoggerDeletes
+            || messageLoggerReactions;
+    }
+
     public static void load() {
     }
 }

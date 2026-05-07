@@ -121,4 +121,15 @@ public class Strings {
     public static final String OPEN_VIDEO_EXTERNALLY = "Open video externally";
     public static final String OPEN_IMAGE_WITH = "Open image with";
     public static final String OPEN_VIDEO_WITH = "Open video with";
+
+    // ── Message Logger ────────────────────────────────────────────────────────
+    public static final String CATEGORY_MESSAGE_LOGGER       = "Message logger";
+    public static final String MESSAGE_LOGGER                = "Enable message logger";
+    public static final String MESSAGE_LOGGER_DESC           = "Log Direct Message activity for edits, deletions, and reactions.";
+    public static final String MESSAGE_LOGGER_EDITS          = "Track edited messages";
+    public static final String MESSAGE_LOGGER_EDITS_DESC     = "Shows the original text when a message is edited.";
+    public static final String MESSAGE_LOGGER_DELETES        = "Track deleted messages";
+    public static final String MESSAGE_LOGGER_DELETES_DESC   = "Shows the content of messages after they are unsent.";
+    public static final String MESSAGE_LOGGER_REACTIONS      = "Track reactions";
+    public static final String MESSAGE_LOGGER_REACTIONS_DESC = "Logs emoji reaction changes (add/remove) on messages.";
 }

@@ -51,4 +51,14 @@ public class Settings extends BaseSettings {
     public static final BooleanSetting HIDE_NAVIGATION_SEARCH = new BooleanSetting("hide_navigation_search", false);
     public static final BooleanSetting HIDE_NAVIGATION_CREATE = new BooleanSetting("hide_navigation_create", false);
     public static final BooleanSetting HIDE_NAVIGATION_PROFILE = new BooleanSetting("hide_navigation_profile", false);
+
+    // ── Message Logger section ────────────────────────────────────────────────
+    /** Master toggle: enables the entire message-logger feature. */
+    public static final BooleanSetting MESSAGE_LOGGER           = new BooleanSetting("message_logger",            false);
+    /** Sub-toggle: detect and log message edits. */
+    public static final BooleanSetting MESSAGE_LOGGER_EDITS     = new BooleanSetting("message_logger_edits",      true);
+    /** Sub-toggle: detect and log message deletions (unsends). */
+    public static final BooleanSetting MESSAGE_LOGGER_DELETES   = new BooleanSetting("message_logger_deletes",    true);
+    /** Sub-toggle: detect and log emoji reaction changes. */
+    public static final BooleanSetting MESSAGE_LOGGER_REACTIONS = new BooleanSetting("message_logger_reactions",  true);
 }

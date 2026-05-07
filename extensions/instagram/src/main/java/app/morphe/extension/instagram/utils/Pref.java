@@ -12,6 +12,7 @@
 package app.morphe.extension.instagram.utils;
 
 import app.morphe.extension.instagram.settings.Settings;
+import app.morphe.extension.instagram.patches.dm.MessageLog;
 import app.morphe.extension.instagram.settings.SettingsStatus;
 
 @SuppressWarnings("unused")
@@ -123,6 +124,52 @@ public class Pref {
 
     public static boolean hideNavigationProfile() {
         return SharedPref.getBooleanPerf(Settings.HIDE_NAVIGATION_PROFILE);
+    }
+
+
+    // ── Message Logger ────────────────────────────────────────────────────────
+
+    /**
+     * Returns true when the master message-logger toggle is enabled.
+     * Called from Smali stubs to guard all logging hooks.
+     */
+    public static boolean messageLogger() {
+        return SharedPref.getBooleanPerf(Settings.MESSAGE_LOGGER);
+    }
+
+    /** Returns true when edit-detection is enabled. */
+    public static boolean messageLoggerEdits() {
+        return SharedPref.getBooleanPerf(Settings.MESSAGE_LOGGER_EDITS);
+    }
+
+    /** Returns true when deletion-detection is enabled. */
+    public static boolean messageLoggerDeletes() {
+        return SharedPref.getBooleanPerf(Settings.MESSAGE_LOGGER_DELETES);
+    }
+
+    /** Returns true when reaction-tracking is enabled. */
+    public static boolean messageLoggerReactions() {
+        return SharedPref.getBooleanPerf(Settings.MESSAGE_LOGGER_REACTIONS);
+    }
+
+    /**
+     * Called from patched bytecode when a reaction-list object is available.
+     * Serialises the collection to a stable String and delegates to
+     * MessageLog.onReactionUpdate().
+     *
+     * @param messageId    The message's unique ID.
+     * @param reactionsObj Instagram's internal reaction-list object (java.lang.Object).
+     *                     Cast to the concrete type once known from APK inspection
+     *                     and build a deterministic comma-separated String so that
+     *                     equal reaction states always produce equal strings.
+     */
+    public static void serializeAndLogReactions(String messageId, Object reactionsObj) {
+        if (!SharedPref.getBooleanPerf(Settings.MESSAGE_LOGGER)
+                || !SharedPref.getBooleanPerf(Settings.MESSAGE_LOGGER_REACTIONS)) return;
+
+        // Replace this stub body after APK inspection reveals the concrete type.
+        String serialized = (reactionsObj != null) ? reactionsObj.toString() : "";
+        MessageLog.onReactionUpdate(messageId, serialized);
     }
 
     //end

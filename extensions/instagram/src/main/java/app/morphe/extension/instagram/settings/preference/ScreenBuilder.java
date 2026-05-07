@@ -452,5 +452,52 @@ public class ScreenBuilder {
         );
     }
 
+    /**
+     * Builds the "Message logger" settings category.
+     *
+     * The category is only added when at least one message-logger sub-feature is
+     * active (i.e. the corresponding patch was applied and set SettingsStatus flags).
+     *
+     * Preference order:
+     *  1. Master toggle  – must be ON for any logging to occur at runtime.
+     *  2. Edit tracking  – show original text when a message is edited.
+     *  3. Delete tracking – show content of unsent messages.
+     *  4. Reaction tracking – log emoji reaction add/remove events.
+     */
+    public void buildMessageLoggerSection() {
+        if (!SettingsStatus.messageLoggerSection()) return;
+
+        PreferenceCategory category = addCategory(Strings.CATEGORY_MESSAGE_LOGGER);
+
+        if (SettingsStatus.messageLogger) {
+            addPreference(category, helper.switchPreference(
+                    Strings.MESSAGE_LOGGER,
+                    Strings.MESSAGE_LOGGER_DESC,
+                    Settings.MESSAGE_LOGGER
+            ));
+        }
+        if (SettingsStatus.messageLoggerEdits) {
+            addPreference(category, helper.switchPreference(
+                    Strings.MESSAGE_LOGGER_EDITS,
+                    Strings.MESSAGE_LOGGER_EDITS_DESC,
+                    Settings.MESSAGE_LOGGER_EDITS
+            ));
+        }
+        if (SettingsStatus.messageLoggerDeletes) {
+            addPreference(category, helper.switchPreference(
+                    Strings.MESSAGE_LOGGER_DELETES,
+                    Strings.MESSAGE_LOGGER_DELETES_DESC,
+                    Settings.MESSAGE_LOGGER_DELETES
+            ));
+        }
+        if (SettingsStatus.messageLoggerReactions) {
+            addPreference(category, helper.switchPreference(
+                    Strings.MESSAGE_LOGGER_REACTIONS,
+                    Strings.MESSAGE_LOGGER_REACTIONS_DESC,
+                    Settings.MESSAGE_LOGGER_REACTIONS
+            ));
+        }
+    }
+
     //end
 }
