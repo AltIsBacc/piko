@@ -30,7 +30,7 @@ internal object MessageItemBindFingerprint : Fingerprint(
     // The binder returns a typed message-model object (Object at the dex level).
     returnType = "Ljava/lang/Object;",
     // Typically a public instance method; adjust if access flags differ.
-    accessFlags = AccessFlags.PUBLIC.value,
+    accessFlags = listOf(AccessFlags.PUBLIC),
     strings = listOf("item_id", "text", "item_type"),
     custom = { methodDef, _ ->
         // Extra guard: exclude constructors.
